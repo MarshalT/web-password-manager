@@ -34,12 +34,37 @@ npx http-server -p 8000 -c-1
 
 ### GitHub Pages 部署
 
-项目已配置 GitHub Actions 自动部署到 GitHub Pages：
+项目支持传统的 GitHub Pages 部署方式：
 
-1. 将代码推送到 `main` 或 `master` 分支
-2. 在仓库设置中启用 GitHub Pages
-3. 选择 "GitHub Actions" 作为部署源
-4. 访问 `https://<username>.github.io/<repository-name>`
+#### 方法一：使用部署脚本（推荐）
+
+**Windows 用户：**
+```cmd
+双击运行 deploy-gh-pages.bat
+```
+
+**Linux/macOS 用户：**
+```bash
+chmod +x deploy-gh-pages.sh
+./deploy-gh-pages.sh
+```
+
+#### 方法二：手动部署
+
+1. 创建并切换到 gh-pages 分支：
+```bash
+git checkout -b gh-pages
+git add .
+git commit -m "部署到 GitHub Pages"
+git push origin gh-pages
+```
+
+2. 在 GitHub 仓库设置中：
+   - 进入 "Pages" 部分
+   - 选择 "Deploy from a branch"
+   - 选择 "gh-pages" 分支和 "/ (root)" 文件夹
+
+3. 访问 `https://MarshalT.github.io/web-password-manager`
 
 ## 🔧 技术栈
 
