@@ -1,0 +1,40 @@
+# GitHub Pages 配置
+
+# 站点设置
+title: "链上密码本管理器"
+description: "基于区块链的安全密码管理工具"
+baseurl: "/web-password-manager" # 如果使用项目页面，请设置此项
+url: "https://MarshalT.github.io" # 替换为您的域名
+
+# 构建设置
+markdown: kramdown
+highlighter: rouge
+
+# 插件
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO 设置
+author: "链上密码本管理器团队"
+
+# 排除文件
+exclude:
+  - README.md
+  - deploy.sh
+  - deploy.bat
+  - .github/
+  - node_modules/
+  - package.json
+  - package-lock.json
+
+# 包含文件
+include:
+  - .nojekyll
+
+# 默认设置
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
