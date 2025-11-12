@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链上密码本管理器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">🔐 链上密码本管理器</h1>
+            <div class="nav-actions">
+                <w3m-button></w3m-button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-container">
+        <!-- 连接钱包提示 -->
+        <div id="connectPrompt" class="connect-prompt">
+            <div class="prompt-content">
+                <h2>欢迎使用链上密码本管理器</h2>
+                <p>请连接您的钱包开始使用</p>
+                <div class="wallet-options" style="justify-content: center;">
+                    <w3m-button size="md"></w3m-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 已连接状态 -->
+        <div id="connectedContent" class="connected-content" style="display: none;">
+            <!-- 添加密码表单 -->
+            <div class="add-password-section">
+                <h2>添加新密码</h2>
+                <form id="addPasswordForm" class="password-form">
+                    <div class="form-group">
+                        <label for="passwordName">密码名称</label>
+                        <input type="text" id="passwordName" required placeholder="例如：邮箱密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="plainPassword">密码</label>
+                        <div style="position: relative;">
+                            <input type="password" id="plainPassword" required placeholder="请输入密码（将自动加密）">
+                            <button type="button" id="togglePasswordAdd" class="toggle-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px;">
+                                👁️
+                            </button>
+                        </div>
+                        <small style="color: #666; font-size: 12px;">🔒 密码将使用您的钱包签名加密后存储</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">分类</label>
+                        <input type="text" id="category" required placeholder="例如：邮箱、金融">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">描述</label>
+                        <textarea id="description" placeholder="密码描述信息（可选）"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">添加密码</button>
+                </form>
+            </div>
+
+            <!-- 密码列表 -->
+            <div class="password-list-section">
+                <div class="section-header">
+                    <h2>我的密码</h2>
+                    <div class="list-actions">
+                        <input type="text" id="searchInput" placeholder="搜索密码..." class="search-input">
+                        <select id="categoryFilter" class="category-filter">
+                            <option value="">所有分类</option>
+                        </select>
+                        <button id="clearFilters" class="btn btn-secondary" style="display: none;">清除筛选</button>
+                        <button id="refreshList" class="btn btn-secondary">刷新</button>
+                    </div>
+                </div>
+
+                <div id="filterStatus" class="filter-status" style="display: none; margin: 10px 0; padding: 8px; background: #f0f9ff; border-radius: 4px; font-size: 14px; color: #0369a1;"></div>
+
+                <div id="passwordList" class="password-list">
+                    <!-- 密码条目将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 加载遮罩 -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>处理中...</p>
+    </div>
+
+    <!-- 模态框 -->
+    <div id="passwordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="modalTitle">查看/编辑密码</h3>
+            <form id="editPasswordForm" class="password-form">
+                <input type="hidden" id="editPasswordId">
+                <div class="form-group">
+                    <label for="editPasswordName">密码名称</label>
+                    <input type="text" id="editPasswordName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPlainPassword">密码</label>
+                    <div style="position: relative;">
+                        <input type="password" id="editPlainPassword" required placeholder="密码">
+                        <button type="button" id="togglePasswordEdit" class="toggle-password" style="position: absolute; right: 50px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px;">
+                            👁️
+                        </button>
+                        <button type="button" id="copyPassword" class="copy-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px;" title="复制密码">
+                            📋
+                        </button>
+                    </div>
+                    <small style="color: #666; font-size: 12px;">🔒 已解密显示</small>
+                </div>
+                <div class="form-group">
+                    <label for="editCategory">分类</label>
+                    <input type="text" id="editCategory" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDescription">描述</label>
+                    <textarea id="editDescription"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">更新密码</button>
+                    <button type="button" id="deletePassword" class="btn btn-danger">删除密码</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 通知消息 -->
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    <!-- Web3Modal 脚本 -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
+

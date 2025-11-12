@@ -1,0 +1,19 @@
+{
+  "name": "web-password-manager",
+  "version": "1.0.0",
+  "description": "链上密码本管理器 - Web3Modal 版本",
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "npx http-server -p 8000 -c-1"
+  },
+  "keywords": [
+    "web3",
+    "password-manager",
+    "blockchain",
+    "xlayer"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+
